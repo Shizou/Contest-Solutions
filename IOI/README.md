@@ -1,7 +1,7 @@
-Canadian Computing Compeition
+International Olympiad in Informatics
 =================
 
-A national programming contest that is run once yearly in the month of Febuary.
+An international programming contest that is run once yearly.
 More information can be found below.
 
-https://cemc.math.uwaterloo.ca/contests/computing.html
+http://www.ioinformatics.org/history.shtml
