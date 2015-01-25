@@ -1,7 +1,7 @@
-Canadian Computing Compeition
+Croation Open Competition in Informatics
 =================
 
-A national programming contest that is run once yearly in the month of Febuary.
+An online programming contest that is run once every couple of months.
 More information can be found below.
 
-https://cemc.math.uwaterloo.ca/contests/computing.html
+http://hsin.hr/coci/
