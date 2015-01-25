@@ -1,7 +1,7 @@
-Canadian Computing Compeition
+USA Computing Olympaid
 =================
 
-A national programming contest that is run once yearly in the month of Febuary.
+Ab obline programming contest that is run monthly.
 More information can be found below.
 
-https://cemc.math.uwaterloo.ca/contests/computing.html
+http://www.usaco.org/
