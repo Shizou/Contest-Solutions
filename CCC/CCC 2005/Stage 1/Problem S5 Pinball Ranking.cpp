@@ -1,77 +1,36 @@
-/**Disclaimer, fails on last testcase because testcase was crafted against beutiful bsts*/
 #include <iostream>
 #include <cstdio>
+#include <vector>
 #include <algorithm>
-#define nullptr 0
-#define scan(x) do{while((x=getchar())<'0'); for(x-='0'; '0'<=(_=getchar()); x=(x<<3)+(x<<1)+_-'0');}while(0)
-char _;
+#define lowbit(x) x&(-x)
+#define MAXN (int)1e5+1
 using namespace std;
 
-struct node{
-    public:
-        int value;
-        int right_children;
-        node* left;
-        node* right;
-    public:
-        node(int v,int rc, node*l, node*r){
-            right_children = rc;
-            value = v;
-            left = l;
-            right = r;
-        }
-};
-class BST{
-    node *root;
-    public:
-        BST(){
-            root = nullptr;
-        }
-        int insert(int &value){
-            if(root == nullptr){
-                root = new node(value,0,nullptr,nullptr);
-                return 0;
-            }
-            else{
-                int rank = 0;
-                node *current = root;
-                while(true){
-                    if(value < current->value){
-                        if(current->left != nullptr){
-                            rank += current->right_children + 1;
-                            current = current->left;
-                        }
-                        else{
-                            rank += current->right_children + 1;
-                            current->left = new (node){value,0,nullptr,nullptr};
-                            return rank;
-                        }
-                    }
-                    else{
-                        if(current->right != nullptr){
-                            ++current->right_children;
-                            current = current->right;
-                        }
-                        else{
-                            ++current->right_children;
-                            current->right = new (node){value,0,nullptr,nullptr};
-                            return rank;
-                        }
-                    }
-                }
-            }
-        }
-};
+int N,tree[MAXN];
+vector< pair<int,int> >arr;
 
-int N;
-double ans;
-BST bst;
-
+void update_tree(int x){
+    for(int i = x; i < MAXN;i+=lowbit(i))
+        tree[i]++;
+}
+int query_tree(int x){
+    int sum = 0;
+    for(int i = x; i > 0;i-=lowbit(i))
+        sum+=tree[i];
+    return sum;
+}
 int main(){
-    scan(N);
-    for(int i = 0, j = 0; i < N;++i){
-        scan(j);
-        ans+= bst.insert(j)+1;
+    //freopen("input.txt","r",stdin);
+    scanf("%d",&N);
+    for(int i = 0,a = 0; i < N;i++){
+        scanf("%d",&a);
+        arr.push_back(make_pair(a,i+1));
+    }
+    sort(arr.begin(),arr.end(),greater< pair<int,int> >());
+    double ans = 0;
+    for(int i = 0; i < N;i++){
+        update_tree(arr[i].second);
+        ans += query_tree(arr[i].second);
     }
     ans/=N;
     printf("%.2f\n",ans);
