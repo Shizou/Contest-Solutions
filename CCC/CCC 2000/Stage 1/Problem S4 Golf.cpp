@@ -1,37 +1,22 @@
-#include<stdio.h>
-#include<queue>
-#include<set>
+#include <iostream>
+#include <cstdio>
+#include <cstring>
 using namespace std;
-int d,n;
-bool p = 0;
-struct stroke{
-    int sum,depth;
-};
-int main(){
-    scanf("%d%d",&d,&n);
-    int c[n];
-    for(int i = 0;i < n;i++) scanf("%d",&c[i]);
-    queue< stroke > q;
-    set < int > set;
-    q.push( (stroke){0,0} );
-    while(!q.empty()){
-        int s = q.front().sum;
-        int dep = q.front().depth;
-        q.pop();
-        if(s > d)
-            continue;
-        if(s == d){
-            printf("Roberta wins in %d strokes.\n",dep);
-            p = true;
-            break;
-        }
-        for(int i = 0;i < n;i++){
-            if(set.find(s+c[i]) == set.end()){
-                q.push( (stroke){ (s+c[i]),dep+1} );
-                set.insert(s+c[i]);
-            }
-        }
-    }
-    if(p == false)
-        printf("Roberta acknowledges defeat.\n");
+
+const int MAXD = (int)1e4, MAXC = 32,INF = 0x3F3F3F3F;
+int D,N,c[MAXC],dist[MAXD];
+int main() {
+	scanf("%d%d",&D,&N);
+	memset(dist,INF,sizeof dist);
+	for(int i = 0; i < N;i++)
+		scanf("%d",&c[i]);
+	dist[0]=0;
+	for(int i = 0; i <= D;i++)
+		for(int j = 0; j < N;j++)
+			dist[i+c[j]] = min(dist[i+c[j]],dist[i]+1);
+	if(dist[D]!=INF)
+		printf("Roberta wins in %d strokes.\n",dist[D]);
+	else
+		printf("Roberta acknowledges defeat.\n");
+	return 0;
 }
