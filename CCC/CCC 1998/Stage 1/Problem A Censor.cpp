@@ -1,45 +1,24 @@
-import java.util.*;
-import java.lang.*;
+#include <iostream>
+#include <cstdio>
+#include <sstream>
+#include <algorithm>
+using namespace std;
 
-public class ccc98s1 {
-
-	public static void main(String[] args){
-		Scanner s = new Scanner(System.in);
-		
-		int Entries  = s.nextInt();
-		
-		
-		for(int j = 0;j <= Entries; j++)
-		{
-			String line =  s.nextLine();
-			StringTokenizer st = new StringTokenizer(line);
-			String empty = "";
-			String test = "";
-			
-			while(st.hasMoreTokens())
-			{
-				empty = st.nextToken();
-				
-				if(empty.length() == 4){
-			
-					System.out.print("**** ");
-					
-				}
-				else if( empty.length() != 4){
-					
-					System.out.print(empty);
-					System.out.print(" ");
-				}
-					
-					
-				
-				
-			}
-		
-			
-			System.out.println();
-			
+int N;
+string s,c;
+int main() {
+	cin >> N;
+	getline(cin,s);
+	for(int i = 0; i < N;i++){
+		getline(cin,s);
+		stringstream ss(s);
+		while(getline(ss,c,' ')){
+			if(c.size() == 4)
+				printf("**** ");
+			else
+				printf("%s ",c.c_str());
 		}
+		printf("\n\n");
 	}
-	
+	return 0;
 }
