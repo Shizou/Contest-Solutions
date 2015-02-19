@@ -1,6 +1,6 @@
-#include<stdio.h>
+#include<cstdio>
 #include<iostream>
-#include<string.h>
+#include<cstring>
 #include<queue>
 #include<vector>
 #include<map>
