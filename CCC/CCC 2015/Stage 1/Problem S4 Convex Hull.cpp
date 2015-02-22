@@ -1,26 +1,27 @@
 #include<iostream>
 #include<cstdio>
 #include<cstring>
-#include<cctype>
-#include<cmath>
-#include<string>
 #include<vector>
 #include<queue>
-#include<set>
-#include<map>
-#include<sstream>
 #include<algorithm>
 #define pb push_back
 #define mp make_pair
 using namespace std;
 
-const int MAXN = 2*(int)1e3,MAXK = 201, INF = 0x3F3F3F3F;
+const int MAXN = 2001,MAXK = 201, INF = 0x3f3f3f3f;
 int K,N,M,A,B;
 int dist[MAXN][MAXK];
 vector< pair<int,pair<int,int> > >adj[MAXN];// node, distance, hull damage
 
-
 int dijkstra(){
+    // Main idea is to perfom dijkstra's algorithm on the graph but instead of using
+    // a one dimensional distance array that holds the minimum distance to get to an
+    // island we instead hold the distance array that holds the minimum distance to
+    // get to an island under a certain damage the hull has received.
+
+    // Just an fyi in c++ the priority queue is a max heap so to circumvent this we
+    // negatize the weights and hull damage so that the priority queue still prioritizez
+    // what we want. I.e. -1 > -7
     priority_queue< pair<int,pair<int,int> > >pq;// distance, hull damage, node
     pq.push(mp(0,mp(-K,A)));
     while(!pq.empty()){
@@ -31,10 +32,10 @@ int dijkstra(){
         for(int i = 0;i < adj[n].size();i++){
             int nt = adj[n][i].first;
             int w  = adj[n][i].second.first;
-            int we = k-adj[n][i].second.second;
-            if(we > 0 && dist[nt][we] > d + w){
-                dist[nt][we] = d + w;
-                pq.push(mp(-dist[nt][we],mp(-we,nt)));
+            int dt = k-adj[n][i].second.second;
+            if(dt > 0 && dist[nt][dt] > d+w){
+                dist[nt][dt] = d+w;
+                pq.push(mp(-dist[nt][dt],mp(-dt,nt)));
             }
         }
     }
@@ -44,9 +45,9 @@ int dijkstra(){
     return ans == INF ? -1:ans;
 }
 
-
 int main(){
-    memset(dist,INF,sizeof dist);
+    //freopen("input.txt","r",stdin);
+    memset(dist,INF,sizeof(dist));
     scanf("%d%d%d",&K,&N,&M);
     for(int i = 0,a,b,t,h;i<M;i++){
         scanf("%d%d%d%d",&a,&b,&t,&h);a--,b--;
