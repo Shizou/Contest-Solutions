@@ -12,26 +12,27 @@
 #include<algorithm>
 using namespace std;
 
-const int MAXN = (int)1e5, INF = 0x3F3F3F3F;
 int G,P,cnt;
-bool v[MAXN];
+set<int>A;
+set<int>::iterator it;
 
-int main(){
-    memset(v,false,sizeof v);
-    scanf("%d%d",&G,&P);
-    for(int i = 0,j = 0;i < P;++i){
-        scanf("%d",&j);--j;
-        for(;j>=0;--j){
-            if(!v[j]){
-                v[j]=true;
-                ++cnt;
-                break;
-            }
-        }
-        if(j == -1)
+int main() {
+	scanf("%d%d",&G,&P);
+	for(int i = 1;i <= G;++i)
+		A.insert(i);
+	for(int i = 0,g = 0;i < P;i++){
+		scanf("%d",&g);
+		it = A.lower_bound(g);
+        if(A.empty() || *it == 0 || (A.begin() == it && *it > g))
             break;
-    }
-    printf("%d\n",cnt);
-    return 0;
+        else{
+            if(*it == g)
+                A.erase(it);
+            else if(*(--it) < g)
+                A.erase(it);
+        }
+        cnt++;
+	}
+	printf("%d\n",cnt);
+	return 0;
 }
-
