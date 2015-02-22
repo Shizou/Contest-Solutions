@@ -16,7 +16,7 @@ vector< pair<int,pair<int,int> > >adj[MAXN];// node, distance, hull damage
 int dijkstra(){
     // Main idea is to perfom dijkstra's algorithm on the graph but instead of using
     // a one dimensional distance array that holds the minimum distance to get to an
-    // island we instead hold the distance array that holds the minimum distance to
+    // island we use a 2D distance array that holds the minimum distance to
     // get to an island under a certain damage the hull has received.
 
     // Just an fyi in c++ the priority queue is a max heap so to circumvent this we
