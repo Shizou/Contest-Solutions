@@ -17,11 +17,11 @@ using namespace std;
 const int MAXN = 2*(int)1e3,MAXK = 201, INF = 0x3F3F3F3F;
 int K,N,M,A,B;
 int dist[MAXN][MAXK];
-vector< pair<int,pair<int,int> > >adj[MAXN];// node, distance, centimeters lost
+vector< pair<int,pair<int,int> > >adj[MAXN];// node, distance, hull damage
 
 
 int dijkstra(){
-    priority_queue< pair<int,pair<int,int> > >pq;// distance, wear and tear, node
+    priority_queue< pair<int,pair<int,int> > >pq;// distance, hull damage, node
     pq.push(mp(0,mp(-K,A)));
     while(!pq.empty()){
         int d = -pq.top().first;
