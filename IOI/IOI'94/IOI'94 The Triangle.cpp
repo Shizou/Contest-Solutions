@@ -4,6 +4,7 @@
 #include<fstream>
 #include<cmath>
 using namespace std;
+
 int n,in,m;
 vector<int> t[100];
 
