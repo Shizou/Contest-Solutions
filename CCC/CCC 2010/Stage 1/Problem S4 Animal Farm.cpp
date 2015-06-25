@@ -1,11 +1,10 @@
-#include<iostream>
-#include<cstdio>
-#include<cstring>
-#include<queue>
-#include<vector>
-#include<algorithm>
+#include<bits/stdc++.h>
 #define pb push_back
 #define mp make_pair
+#define db 0
+#define all(x)(x).begin(),(x).end()
+#define x first
+#define y second
 using namespace std;
 
 struct corners{
@@ -23,28 +22,30 @@ int prim(int n){
     priority_queue< pair<int,pair<int,int> > >pq;
     int MSTNodes = 1, totWeight = 0;
     for(int i = 0; i < adj[1].size();i++)
-            if(adj[1][i].first <= n)
-                pq.push(mp(-adj[1][i].second,mp(1,adj[1][i].first)));
+            if(adj[1][i].x <= n)
+                pq.push(mp(-adj[1][i].y,mp(1,adj[1][i].x)));
     memset(v,false,sizeof v);
     v[1] = true;
     while(MSTNodes < n && !pq.empty()){
-        int w = -pq.top().first;
-        int sn = pq.top().second.first;
-        int en = pq.top().second.second;
+        int w = -pq.top().x;
+        int sn = pq.top().y.x;
+        int en = pq.top().y.y;
         pq.pop();
         if(v[sn] && !v[en]){
             MSTNodes++;
             totWeight+=w;
             v[en] = true;
             for(int i = 0; i < adj[en].size();i++)
-                if(adj[en][i].first <= n)
-                    pq.push(mp(-adj[en][i].second,mp(en,adj[en][i].first)));
+                if(adj[en][i].x <= n)
+                    pq.push(mp(-adj[en][i].y,mp(en,adj[en][i].x)));
         }
     }
     return MSTNodes == n ? totWeight:INF;
 }
 
 int main(){
+    freopen("input.txt","r",stdin);
+    freopen("output.txt","w",stdout);
     scanf("%d",&N);
     for(int i = 0; i < MAXN;i++)
         for(int j = 0; j < MAXN;j++)

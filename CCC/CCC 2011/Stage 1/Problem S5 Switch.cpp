@@ -1,56 +1,40 @@
-#include<iostream>
-#include<queue>
-#include<vector>
-#include<cstdio>
-#include<cmath>
+#include<bits/stdc++.h>
+#define pb push_back
+#define mp make_pair
+#define db 0
+#define all(x)(x).begin(),(x).end()
+#define x first
+#define y second
 using namespace std;
-int n;
-char c;
-string in;
-vector<bool> vis(33554431);
-struct path{
-    string s;
-    int d,id;
-};
-int dec(string s){
-    int d = 0,p = 0;
-    for(int i = s.size()-1;i >= 0;i--){if(s[i]== '1') d += 1 << p;p++;}
-    return d;
-}
+
+int N,ID;
+char C;
+bool v[(1<<25)+1];
+
 int main(){
-    //freopen("input.txt","r",stdin);
-    scanf("%d",&n);
-    for(int i = 0;i < n;i++){
-        scanf(" %c",&c);
-        in+=c;
+    freopen("Input/s5.9.in","r",stdin);
+    scanf("%d",&N);
+    for(int i = 0;i < N;i++){
+        scanf(" %c",&C);
+        if(C == '1')
+           ID |= 1<<(i);
     }
-    queue< path >q;
-    q.push((path){in,0,dec(in)});
+    queue< pair<int,int> >q;
+    q.push(mp(0,ID));
     while(!q.empty()){
-        string s = q.front().s;
-        int d = q.front().d;
-        int id = q.front().id;
+        int d = q.front().x;
+        int id = q.front().y;
         q.pop();
-        if(vis[id]) continue;
-        vis[id] = 1;
-        for(int i = 0;i < n;i++){
-            if(i+3 < n){
-                /*Checks for four consecutive ones.*/
-                if(s[i] == '1' && s[i+1] == '1' && s[i+2] == '1' && s[i+3] == '1' ){
-                    s[i] = s[i+1] =  s[i+2]=  s[i+3]= '0';
-                    /*Subtracts 2^(n-i-1) from the id used to mark the visited array*/
-                    id-= (1 << (n-i-1)) + (1 << (n-(i+1)-1)) + (1 << (n-(i+2)-1)) + (1 << (n-(i+3)-1));
-                    /*Same process as above except for any consecutive block that's greater than four lights.*/
-                    for(int j = i+4; j < n;j++){
-                        if(s[j] == '1'){
-                            s[j] = '0';
-                            id-= (1 << (n-j-1));
-                            i++;
-                        }
-                        else
+        for(int i = 0;i < N;i++){
+            if(i+3 < N){
+                /*Checks for 4 consecutive ones.*/
+                if( (id >> (i) & 1) && (id >> (i+1) & 1) && (id >> (i+2) & 1) && (id >> (i+3) & 1) ){
+                     for(int j = i;j < N;j++){
+                         if( (id >> (j) & 1) )
+                            id ^= 1<<(j);
+                         else
                             break;
-                    }
-                    i+=3;// i is incremented to speed the process up.
+                     }
                 }
             }
         }
@@ -58,15 +42,15 @@ int main(){
             printf("%d\n",d);
             return 0;
         }
-        for(int i = 0;i < n;i++){
-            if(s[i] == '0'){
-                s[i] = '1';
-                /*Adds 2^(n-i-1) to the current id to create the id new row of lights*/
-                int chq = id + (1 << (n-i-1));
-                if(!vis[chq]){
-                    q.push( (path){s,d+1,chq});
+        for(int i = 0,bit = 0;i < N;i++){
+            bit = (id>>i)&1;
+            if( bit == 0 ){
+                id ^= 1<<(i);
+                if(!v[id]){
+                    v[id] = true;
+                    q.push(mp(d+1,id));
                 }
-                s[i] = '0';
+                id ^= 1<<(i);
             }
         }
     }
