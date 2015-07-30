@@ -15,12 +15,6 @@ void input(){
     while(getline(ss,t,' '))
         words.push_back(t);
 }
-bool is_set(){
-    if(words[0].size() >= 2 && words[0][words[0].size()-2] == '\'' && words[0][words[0].size()-1] == 's')
-        return true;
-    else
-        return false;
-}
 
 int main(){
     //freopen("input.txt","r",stdin);
@@ -28,7 +22,7 @@ int main(){
     getline(cin,s);
     for(int i = 0; i < N;i++){
         input();
-            if(is_set())
+            if(words[0].size() >= 2 && words[0][words[0].size()-2] == '\'' && words[0][words[0].size()-1] == 's')
                 printf("Set\n");
             else if(words[0] == "damaged")
                 printf("Normal\n");
