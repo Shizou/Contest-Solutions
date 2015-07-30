@@ -1,13 +1,10 @@
-#include<iostream>
-#include<cstdio>
-#include<cctype>
-#include<vector>
-#include<sstream>
+#include<bits/stdc++.h>
 using namespace std;
-int N;
 
+int N;
 vector<string> words;
 string s;
+
 void input(){
     s = "";
     getline(cin,s);
