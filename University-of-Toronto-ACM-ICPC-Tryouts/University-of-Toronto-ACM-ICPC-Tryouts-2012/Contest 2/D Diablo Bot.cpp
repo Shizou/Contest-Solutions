@@ -21,7 +21,7 @@ int main(){
     cin >> N;
     getline(cin,s);
     for(int i = 0; i < N;i++){
-            input();
+        input();
             if(words[0].size() >= 2 && words[0][words[0].size()-2] == '\'' && words[0][words[0].size()-1] == 's')
                 printf("Set\n");
             else if(words[0] == "damaged")
