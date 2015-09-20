@@ -9,9 +9,6 @@ struct DSET{
    DSET(){
       sum = 0;
    }
-   ~DSET(){
-     s.clear();
-   }
    DSET(int &n){
       s.insert(n);
       sum = 0;
@@ -57,7 +54,6 @@ int main(){
               continue;
            else{
               m[p]->merge(m[q]->s);
-              delete m[q];
               m[q] = m[p];
            }
         }
