@@ -6,4 +6,4 @@ The folders above contain a collection of my own contest solutions for varying c
 These are most of the problems that I have solved, if anyone would like to know a full list of problems that I have solved or would like to request a solution to be uploaded(from this same list), then please follow the link provided below. 
 
 
-http://wcipeg.com/user/Lemonade
+http://wcipeg.com/user/wgma00
