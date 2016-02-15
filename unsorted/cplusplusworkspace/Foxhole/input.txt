@@ -1,0 +1,26 @@
+2
+2 3 4
+DDD
+TES
+R
+D
+R
+L
+3 2 6
+TE
+TE
+ET
+R
+R
+L
+R
+L
+R
+2 2 4
+SE
+TE
+R
+D
+D
+L
+

@@ -1,0 +1,34 @@
+8
+0 1013
+1 122
+salami
+4 1
+veryveryverylongword
+a
+boat
+veryveryverylongword
+4 2
+truck
+truck
+boat
+car
+8 3
+boat
+car
+van
+car
+truck
+boat
+truck
+truck
+4 111
+boat
+car
+truck
+truck
+1 1
+oneword
+3 1
+long
+longer
+different

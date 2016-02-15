@@ -1,0 +1,42 @@
+(A+B)*(C-D)
+A*(B-C)
+A+B
+A*B-(C+D)
+A*((B+C)*D)
+
+Solutions
++AB
+*A-BC
+*+AB-CD
+-*AB+CD
+*A*BCD
+
+  for(int j = i+1;j < s;j++){
+
+                if(in.at(j) == '('){
+
+                   for(int k = j+1; k < s;k++){
+                        if(in.at(k) == '+'){
+                            in.insert(k-2,'+')
+                            in.erase(k);
+                        }
+                        else if(in.at(k) == '-'){
+                            in.insert(k-2,'-')
+                            in.erase(k);
+                        }
+                        else if(in.at(k) == '*'){
+                            in.insert(k-2,'*')
+                            in.erase(k);
+                        }
+                        else if(in.at(k) == ')'){
+                            in.erase(i);
+                            in.erase(k);
+                        }
+
+                   }
+
+                }
+
+            }
+
+        }

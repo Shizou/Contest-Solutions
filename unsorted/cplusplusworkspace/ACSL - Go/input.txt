@@ -1,0 +1,17 @@
+.......
+..XXX..
+.XOOOX.
+.XO.OX.
+.XOOOX.
+.XXXX..
+.......
+
+OOO.OOO
+XXX.XXX
+.......
+.O.XX..
+..XOOX.
+...X...
+O.....X
+
+
