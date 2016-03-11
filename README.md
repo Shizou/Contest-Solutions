@@ -7,7 +7,11 @@ These are most of the problems that I have solved, if anyone would like to know 
 
 
 These are the current platforms I frequent.
+
 http://wcipeg.com/user/wgma00
+
 http://codeforces.com/profile/wgma00
+
 https://open.kattis.com/users/wgma00
+
 https://projecteuler.net/profile/wgma00.png
