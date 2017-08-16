@@ -1,5 +1,5 @@
 require 'matrix'
-
+# https://math.stackexchange.com/questions/213658/get-the-equation-of-a-circle-when-given-3-points
 for i in 1..2
     x_1 , y_1 = gets.chomp.split(" ").map(&:to_f)
     x_2 , y_2 = gets.chomp.split(" ").map(&:to_f)
