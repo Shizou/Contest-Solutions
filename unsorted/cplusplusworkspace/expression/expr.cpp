@@ -5,11 +5,12 @@
 #include<algorithm>
 #include<sstream>
 #include<cctype>
+#include<stack>
 #define len(x) (int)(x).size()
 
 
-std::vector<std::string>unary_ops={"+", "-", "sin", "cos", "tan", "log", "sqrt"};
-std::map<std::string, std::string>math_const = {{"pi", "3.1415"}, {"e", "2.7182"}}; 
+std::vector<std::string> unary_ops={"+", "-", "sin", "cos", "tan", "log", "sqrt"};
+std::map<std::string, std::string> math_const = {{"pi", "3.1415"}, {"e", "2.7182"}}; 
 
 /** Determines the precidence of each operator.
  *
@@ -18,27 +19,24 @@ std::map<std::string, std::string>math_const = {{"pi", "3.1415"}, {"e", "2.7182"
  * */
 int prec(std::string op, bool unary){
     if(unary){
+        // check if this is one of the predefined unary operators
         if(std::find(unary_ops.begin(), unary_ops.end(), op) != unary_ops.end()){ 
             return 3;
         }
         return 0;
     }
-    if(op == "^")
-        return 4;
-    if(op == "*" || op == "/")
-        return 2;
-    if(op == "+" || op == "-")
-        return 1;
-    return 0;
+    if(op == "^") return 4;
+    if(op == "*" || op == "/") return 2;
+    if(op == "+" || op == "-") return 1;
+    return 0; // not a binary operator
 }
 
 /** Performs unary option.
  * */
 int calc_unary_op(std::string op, int val){
-    if(op == "+")
-        return val;
-    if(op == "-")
-        return -val;
+    if(op == "+") return +val;
+    if(op == "-") return -val;
+    throw std::runtime_error("Invalid unary operator: " + op);
     /*
     if(op == 'sin')
         return math.sin(val)
@@ -52,7 +50,6 @@ int calc_unary_op(std::string op, int val){
     if op == 'sqrt':
         return math.sqrt(val)
     */
-    return 0;
 }
 
 /** Performs arithmetic on operands 
@@ -68,7 +65,7 @@ int calc_operands(std::string op, int left_operand, int right_operand){
         return left_operand / right_operand;
     if(op == "^")
         return (int)pow(left_operand, right_operand);
-    return 0;
+    throw std::runtime_error("Invalid binary operator: " + op);
 }
 
 /** Checks if it's an operand defined in our prec function
@@ -83,7 +80,7 @@ int string_to_int(std::string s){
     int ret;
     std::stringstream ss;
     ss << s;
-    ss >> s;
+    ss >> ret;
     return ret;
 }
 
@@ -104,44 +101,42 @@ int evaluate_expr(std::vector<std::string>expr){
     expr.insert(expr.begin(), "(");
     expr.push_back(")");
 
-    std::vector< std::pair<std::string, bool> >ops;
-    std::vector<int>vals;
+    std::stack< std::pair<std::string, bool> >ops;
+    std::stack<int>vals;
 
     for(int i = 0;i < len(expr);i++){
         if(is_operand(expr[i])){
-            vals.push_back(string_to_int(expr[i]));
+            vals.push(string_to_int(expr[i]));
             continue;
         }
         else if(expr[i] == "("){
-            ops.push_back(std::make_pair("(", false));
+            ops.push(std::make_pair("(", false));
             continue;
         }
         // This is a valid unary operator 
-        else if(prec(expr[i], true) && (i == 0 || expr[i-1] == "(" || prec(expr[i-1], false))){
-            ops.push_back(std::make_pair(expr[i], true));
+        else if(prec(expr[i], true) && (i == 0 || expr[i-1] == "(" || prec(expr[i-1], false) )){
+            ops.push(std::make_pair(expr[i], true));
             continue;
         }
-        while(prec(ops[len(ops)-1].first, ops[len(ops)-1].second) >= prec(expr[i], false)){
-            std::string op = ops[len(ops)-1].first;
-            bool is_unary = ops[len(ops)-1].second;
-            ops.pop_back();
-            if(op == "(")
-                break;
-            int y = vals[len(vals)-1];
-            vals.pop_back();
-            if(is_unary)
-                vals.push_back(calc_unary_op(op, y));
+        while(prec(ops.top().first, ops.top().second) >= prec(expr[i], false)){
+            std::string op = ops.top().first;
+            bool is_unary = ops.top().second;
+            ops.pop();
+            if(op == "(") break;
+            int y = vals.top(); vals.pop();
+            if(is_unary){
+                vals.push(calc_unary_op(op, y));
+            }
             else{
-                int x = vals[len(vals)-1];
-                vals.pop_back();
-                vals.push_back(calc_operands(op, x, y));
+                int x = vals.top(); vals.pop();
+                vals.push(calc_operands(op, x, y));
             }
         }
         if(expr[i] != ")"){
-            ops.push_back(std::make_pair(expr[i], 0));
+            ops.push(std::make_pair(expr[i], false));
         }
     }
-    return vals[len(vals)-1];
+    return vals.top();
 }
 
 /** Split a string expression to tokens.
@@ -222,9 +217,9 @@ int evaluate(std::string str){
 int main(){
     printf("%d\n", evaluate("1/10"));
     printf("%d\n", evaluate("1+1"));
-    // printf("%d\n", evaluate("1+(51 * -100)"));
-    // printf("%d\n", evaluate("(1/10) + (2/10)"));
-    // printf("%d\n", evaluate("((1/10) + (2/10) - (3/10))*1000000000000000000"));
+    printf("%d\n", evaluate("1+(51 * -100)"));
+    printf("%d\n", evaluate("(1/10) + (2/10)"));
+    printf("%d\n", evaluate("((1/10) + (2/10) - (3/10))*1000000000000000000"));
     // printf("%d\n", evaluate("(1/10) + (2/10) - (3/10)"));
     // printf("%d\n", evaluate("(1+1/1000000)^1000000"));
     // printf("%d\n", evaluate("sin(cos(sqrt((1))))"));
@@ -235,6 +230,7 @@ int main(){
     // printf("%d\n", evaluate("sin(pi)"));
     // printf("%d\n", evaluate("cos(pi)"));
     // printf("%d\n", evaluate(".3^2 + .4^2 - .25"));
+    //
 
     return 0;
 }
