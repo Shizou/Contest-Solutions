@@ -215,22 +215,8 @@ int evaluate(std::string str){
 }
 
 int main(){
-    printf("%d\n", evaluate("1/10"));
-    printf("%d\n", evaluate("1+1"));
-    printf("%d\n", evaluate("1+(51 * -100)"));
-    printf("%d\n", evaluate("(1/10) + (2/10)"));
-    printf("%d\n", evaluate("((1/10) + (2/10) - (3/10))*1000000000000000000"));
-    // printf("%d\n", evaluate("(1/10) + (2/10) - (3/10)"));
-    // printf("%d\n", evaluate("(1+1/1000000)^1000000"));
-    // printf("%d\n", evaluate("sin(cos(sqrt((1))))"));
-    // printf("%d\n", evaluate("sin(cos(sqrt(e+pi)))"));
-    // printf("%d\n", evaluate("pi/1000"));
-    // printf("%d\n", evaluate("pi/1000"));
-    // printf("%d\n", evaluate("sqrt(pi)"));
-    // printf("%d\n", evaluate("sin(pi)"));
-    // printf("%d\n", evaluate("cos(pi)"));
-    // printf("%d\n", evaluate(".3^2 + .4^2 - .25"));
-    //
-
-    return 0;
+    std::string input;
+    std::getline(std::cin, input);
+    std::cout << evaluate(input) << std::endl;
+    return 0; 
 }
