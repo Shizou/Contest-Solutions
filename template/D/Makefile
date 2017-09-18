@@ -5,7 +5,7 @@ cpp: clear
 	g++ ${CFLAGS} D.cpp -o D && ./D < ${input} && rm D
 
 py: clear
-	python3 D.py && < ${input}
+	python3 D.py < ${input}
 
 java: clear
 	javac D.java && java D < ${input} && rm D.class
