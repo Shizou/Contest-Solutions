@@ -68,7 +68,7 @@ int string_to_int(string s){
     int ret;
     stringstream ss;
     ss << s;
-    ss >> s;
+    ss >> ret;
     return ret;
 }
 
