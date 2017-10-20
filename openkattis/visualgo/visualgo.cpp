@@ -10,7 +10,7 @@
 
 #define MAXN 100000
 #define inf 0x3f3f3f3f
-#define db 1
+#define db 0
 using namespace std;
 
 vector<pair<int,int>>adj[MAXN]; // next node, weight
@@ -51,7 +51,7 @@ void dijkstra(int s, int t){
         pq.push(make_pair(dist[u], u));
     }
     dist[s] = 0;
-    num[s] = 0; 
+    num[s] = 1; 
     if(db)debug_state();
     while(!pq.empty()){
         int d  = pq.top().first;
